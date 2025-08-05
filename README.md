@@ -4,11 +4,11 @@ A web application designed to bridge the gap between scientific researchers and 
 
 ## 🌟 Project Context
 
-This project was developed during the **ACM Collective Intelligence 2025** hackathon by:
-- **Justin Moran**
-- **Dr. Jeff Nickerson** 
-- **Gisele Batista**
-- **Jeongeon Park**
+This project was developed during the **[ACM Collective Intelligence 2025](https://ci.acm.org/2025/)** hackathon by:
+- **[Justin Moran](https://kyaneos.github.io/cv/)**
+- **[Dr. Jeff Nickerson](https://www.stevens.edu/profile/jnickers)** 
+- **[Gisele Batista](https://www.linkedin.com/in/giselebatista/)**
+- **[Jeongeon Park](https://jeongeonpark.com/)**
 
 ### The Challenge
 During our hackathon sprint, we tackled the critical question: **"How do we make research and research funding more palatable to the general public?"**
@@ -24,8 +24,8 @@ We created a platform that facilitates meaningful connections between researcher
 
 🎯 **Try it now!** Both versions are deployed and ready to explore:
 
-- **🎪 Demo Version**: [View Live Demo](https://your-username.github.io/your-repo-name/demo/) - *Ready to use with sample data*
-- **🚀 Alpha Version**: [View Live Alpha](https://your-username.github.io/your-repo-name/alpha/) - *Production-ready with database*
+- **🎪 Demo Version**: [View Live Demo](https://kyaneos.github.io/researchmatch/demo/) - *Ready to use with sample data*
+- **🚀 Alpha Version**: [View Live Alpha](https://kyaneos.github.io/researchmatch/alpha/) - *Production-ready with database*
 
 > **Note**: Replace `your-username` and `your-repo-name` with your actual GitHub details after deployment.
 
@@ -249,7 +249,6 @@ This project was created during a hackathon and represents a proof of concept. W
 - [ ] Advanced matching algorithms with ML
 - [ ] Integration with academic databases (ORCID, Google Scholar)
 - [ ] Mobile application
-- [ ] Video call integration
 - [ ] Collaboration project tracking
 - [ ] Analytics and reporting dashboard
 - [ ] API for third-party integrations
