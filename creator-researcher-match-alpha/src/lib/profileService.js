@@ -205,6 +205,12 @@ export function getProfile() {
     const stored = localStorage.getItem(PROFILE_KEY);
     if (stored) {
       const profile = JSON.parse(stored);
+      // Check if this is demo data - if so, clear it for alpha version
+      if (profile.id && (profile.id === 'demo-researcher' || profile.id === 'demo-creator')) {
+        console.log('Clearing demo data from localStorage for alpha version');
+        localStorage.removeItem(PROFILE_KEY);
+        return null;
+      }
       return profile;
     }
   } catch (error) {

@@ -60,11 +60,49 @@
       const { fetchCreatorsFromDB, fetchResearchersFromDB, fetchResearchGroupsFromDB, isDatabaseConfigured } = await import('./database.js');
       
       if (!isDatabaseConfigured()) {
-        // If no database configured, show empty analytics with helpful message
-        creators = [];
-        researchers = [];
-        researchGroups = [];
-        console.log('Database not configured, showing empty analytics');
+        // If no database configured, fall back to JSON files
+        console.log('Database not configured, loading from JSON files');
+        try {
+          const [creatorsRes, researchersRes, groupsRes] = await Promise.all([
+            fetch('/stem_creators_full_list.json'),
+            fetch('/researchers_full_list.json'),
+            fetch('/research_groups.json')
+          ]);
+          
+          if (!creatorsRes.ok || !researchersRes.ok || !groupsRes.ok) {
+            throw new Error('Failed to fetch JSON data files');
+          }
+          
+          creators = await creatorsRes.json();
+          researchers = await researchersRes.json();
+          const groupsData = await groupsRes.json();
+          
+          // Process research groups data
+          researchGroups = [];
+          if (groupsData && groupsData.universities && Array.isArray(groupsData.universities)) {
+            groupsData.universities.forEach((university) => {
+              if (university.departments && Array.isArray(university.departments)) {
+                university.departments.forEach((department) => {
+                  if (department.labs && Array.isArray(department.labs)) {
+                    department.labs.forEach((lab) => {
+                      researchGroups.push({
+                        ...lab,
+                        university: university.name,
+                        department: department.name,
+                        location: university.location
+                      });
+                    });
+                  }
+                });
+              }
+            });
+          }
+        } catch (fallbackError) {
+          console.error('Failed to load JSON files:', fallbackError);
+          creators = [];
+          researchers = [];
+          researchGroups = [];
+        }
       } else {
         // Load data from database
         creators = await fetchCreatorsFromDB();
@@ -113,9 +151,10 @@
       impactfulContent = [];
       trendingTopics = [];
       personalizedInsights = [{
-        title: "Database Setup Required",
-        message: "Connect your Supabase database to see real analytics data. Check the README for setup instructions.",
-        priority: "high"
+        title: "Demo Data",
+        value: "Showing sample analytics",
+        insight: "Connect your Supabase database to see real user data. Check the README for setup instructions.",
+        type: "info"
       }];
       connectionAnalytics = {
         totalConnections: 0,
