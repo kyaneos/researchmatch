@@ -1,0 +1,51 @@
+name: Deploy Alpha Version
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'creator-researcher-match-alpha/**'
+      - '.github/workflows/deploy-alpha.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'creator-researcher-match-alpha/**'
+
+jobs:
+  deploy-alpha:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: creator-researcher-match-alpha/package-lock.json
+
+    - name: Install dependencies
+      run: |
+        cd creator-researcher-match-alpha
+        npm ci
+
+    - name: Build project
+      run: |
+        cd creator-researcher-match-alpha
+        npm run build
+      env:
+        NODE_ENV: production
+        # Note: For production deployment, set these in GitHub repository secrets
+        VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+        VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+    - name: Deploy to GitHub Pages (Alpha)
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./creator-researcher-match-alpha/dist
+        destination_dir: alpha
+        cname: # Add your custom domain here if you have one
