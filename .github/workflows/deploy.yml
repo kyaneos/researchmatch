@@ -1,0 +1,116 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install demo dependencies
+      run: |
+        cd creator-researcher-match-demo
+        npm install
+
+    - name: Build demo version
+      run: |
+        cd creator-researcher-match-demo
+        npm run build
+      env:
+        NODE_ENV: production
+
+    - name: Install alpha dependencies
+      run: |
+        cd creator-researcher-match-alpha
+        npm install
+
+    - name: Build alpha version
+      run: |
+        cd creator-researcher-match-alpha
+        npm run build
+      env:
+        NODE_ENV: production
+        VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+        VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+    - name: Create combined deployment directory
+      run: |
+        mkdir -p deployment
+        cp -r creator-researcher-match-demo/dist deployment/demo
+        cp -r creator-researcher-match-alpha/dist deployment/alpha
+        
+        # Create a simple index page
+        cat > deployment/index.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Creator-Researcher Match Platform</title>
+          <style>
+            body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+            .version { background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 8px; }
+            .demo { border-left: 4px solid #28a745; }
+            .alpha { border-left: 4px solid #007bff; }
+            a { color: #007bff; text-decoration: none; font-weight: bold; }
+            a:hover { text-decoration: underline; }
+            h1 { color: #333; }
+            h2 { color: #666; }
+          </style>
+        </head>
+        <body>
+          <h1>🔬 Creator-Researcher Match Platform</h1>
+          <p>A platform to bridge the gap between scientific researchers and content creators, making research more accessible to the general public.</p>
+          
+          <div class="version demo">
+            <h2>🎪 Demo Version</h2>
+            <p>Ready-to-use version with sample data. Perfect for exploring features and functionality.</p>
+            <a href="./demo/">→ Launch Demo Version</a>
+          </div>
+          
+          <div class="version alpha">
+            <h2>🚀 Alpha Version</h2>
+            <p>Production-ready version with database integration. Clean slate for real deployment.</p>
+            <a href="./alpha/">→ Launch Alpha Version</a>
+          </div>
+          
+          <hr style="margin: 40px 0;">
+          <p style="text-align: center; color: #666;">
+            Developed at ACM Collective Intelligence 2025 Hackathon<br>
+            <a href="https://github.com/kyaneos/researchmatch">View on GitHub</a>
+          </p>
+        </body>
+        </html>
+        EOF
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./deployment
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      if: github.ref == 'refs/heads/main'
+      uses: actions/deploy-pages@v4
