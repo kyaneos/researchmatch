@@ -17,8 +17,8 @@ const demoProfiles = {
     subscribers: '',
     institution: 'UC San Diego',
     field: 'Neuroscience, Cognitive Science, Social Psychology',
-    expertise: 'social neuroscience, science tools, social interactions, cognitive neuroscience, machine learning',
-    topics: ['Social neuroscience', 'Science tools', 'Social interactions', 'Cognitive neuroscience', 'Machine learning'],
+    expertise: 'social neuroscience, gossip psychology, social information networks, cognitive neuroscience, machine learning',
+    topics: ['Social neuroscience', 'Gossip and social bonding', 'Information networks', 'Cognitive neuroscience', 'Science communication'],
     availability: 'Open to collaborators',
     profileImage: null,
     created_at: new Date().toISOString(),
@@ -35,9 +35,9 @@ const demoProfiles = {
       },
       {
         id: 2,
-        title: 'Computational approaches to understanding social behavior',
+        title: 'The neuroscience of gossip: How social information shapes human bonding',
         authors: 'Jolly, E., Smith, A., Johnson, K.',
-        journal: 'Trends in Cognitive Sciences',
+        journal: 'Current Opinion in Psychology',
         year: 2022,
         link: 'https://example.com/paper2'
       }
@@ -53,19 +53,19 @@ const demoProfiles = {
     collaborations: [
       {
         id: 1,
-        name: 'Dr. Luke Chang',
-        institution: 'Dartmouth College',
-        project: 'Social decision-making in groups',
-        year: 2023,
-        outcome: 'Published in Nature Neuroscience, presented at SfN 2023'
+        name: 'Kelsey McKinney',
+        institution: 'Normal Gossip',
+        project: 'S3 Ep7: The Science Behind Gossip with Eshin Jolly',
+        year: 2022,
+        outcome: 'Podcast episode posted on all podcast streaming services'
       },
       {
         id: 2,
-        name: 'Dr. Sarah Mitchell',
-        institution: 'Stanford University',
-        project: 'Climate communication strategies',
-        year: 2022,
-        outcome: 'Joint grant proposal funded by NSF'
+        name: 'Dr. Luke Chang',
+        institution: 'Dartmouth College',
+        project: 'Neural mechanisms of social information processing',
+        year: 2023,
+        outcome: 'Published in Nature Neuroscience, presented at SfN 2023'
       }
     ],
     platformPreferences: {
