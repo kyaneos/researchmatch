@@ -56,26 +56,18 @@
     const connections = getConnections();
     
     try {
-      // Load data from JSON files
-      const [creatorsRes, researchersRes, groupsRes] = await Promise.all([
-        fetch('/stem_creators_full_list.json'),
-        fetch('/researchers_full_list.json'),
-        fetch('/research_groups.json')
+      // Load data from JavaScript modules to avoid CORS issues on GitHub Pages
+      const [{ creatorsData }, { researchersData }, { researchGroupsData }] = await Promise.all([
+        import('../data/creators.js'),
+        import('../data/researchers.js'),
+        import('../data/researchGroups.js')
       ]);
       
-      console.log('Fetch responses received:', { 
-        creatorsOk: creatorsRes.ok, 
-        researchersOk: researchersRes.ok, 
-        groupsOk: groupsRes.ok 
-      });
+      console.log('Data modules loaded successfully');
       
-      if (!creatorsRes.ok || !researchersRes.ok || !groupsRes.ok) {
-        throw new Error('Failed to fetch one or more data files');
-      }
-      
-      creators = await creatorsRes.json();
-      researchers = await researchersRes.json();
-      const groupsData = await groupsRes.json();
+      creators = creatorsData;
+      researchers = researchersData;
+      const groupsData = researchGroupsData;
       
       console.log('Data loaded successfully:', {
         creators: creators.length,
