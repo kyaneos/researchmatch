@@ -1,4 +1,4 @@
-# Creator-Researcher Match - Demo Version
+# ResearchMatch - Demo Version
 
 🎯 **Hackathon Demo Version** - Ready to run with pre-populated data
 

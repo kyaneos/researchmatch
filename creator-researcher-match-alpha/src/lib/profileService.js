@@ -211,12 +211,9 @@ export function getProfile() {
     console.error('Error loading profile:', error);
   }
   
-  // Return default profile based on demo mode
-  const demoMode = getDemoMode();
-  const defaultProfile = demoProfiles[demoMode];
-  // Save the default profile
-  saveProfile(defaultProfile);
-  return defaultProfile;
+  // For alpha version, return null if no profile exists
+  // This will trigger the authentication flow
+  return null;
 }
 
 export function saveProfile(profile) {

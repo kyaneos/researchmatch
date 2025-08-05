@@ -1,4 +1,4 @@
-# Creator-Researcher Match - Alpha Version
+# ResearchMatch - Alpha Version
 
 🚀 **Production-Ready Alpha** - Database-powered with real-world scalability
 

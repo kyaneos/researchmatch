@@ -6,12 +6,15 @@
   import Profile from './lib/Profile.svelte';
   import Messages from './lib/Messages.svelte';
   import TextHighlightHandler from './lib/TextHighlightHandler.svelte';
-  import DemoToggle from './lib/DemoToggle.svelte';
-  import { toggleDemoMode } from './lib/profileStore.js';
+  import Auth from './lib/Auth.svelte';
+  import { currentProfile, updateProfile } from './lib/profileStore.js';
   
   let currentPage = 'home';
   let newConversation = null;
-  let demoToggleRef;
+  let isAuthenticated = false;
+  
+  // Check authentication status on component initialization
+  $: isAuthenticated = $currentProfile !== null;
   
   function navigate(page) {
     currentPage = page;
@@ -35,35 +38,34 @@
     }, 100);
   }
   
-  function handleDemoToggle(event) {
-    const { newType } = event.detail;
-    toggleDemoMode(newType);
-    
-    // Update the demo toggle component
-    if (demoToggleRef) {
-      demoToggleRef.updateCurrentProfile();
-    }
+  function handleAuthenticated(event) {
+    const { profile } = event.detail;
+    updateProfile(); // This will update the currentProfile store
+    currentPage = 'home'; // Navigate to home after successful authentication
   }
 </script>
 
 <main style="background-color: white; min-height: 100vh;">
-  <!-- Demo toggle banner -->
-  <DemoToggle bind:this={demoToggleRef} on:toggle={handleDemoToggle} />
-  
-  <Nav {navigate} {currentPage} />
-  
-  {#if currentPage === 'home'}
-    <Home {navigate} />
-  {:else if currentPage === 'discover'}
-    <Discover {startConversationWith} />
-  {:else if currentPage === 'analytics'}
-    <Analytics />
-  {:else if currentPage === 'profile'}
-    <Profile />
-  {:else if currentPage === 'messages'}
-    <Messages {newConversation} />
+  {#if !isAuthenticated}
+    <!-- Show authentication screen -->
+    <Auth on:authenticated={handleAuthenticated} />
+  {:else}
+    <!-- Show main application -->
+    <Nav {navigate} {currentPage} />
+    
+    {#if currentPage === 'home'}
+      <Home {navigate} />
+    {:else if currentPage === 'discover'}
+      <Discover {startConversationWith} />
+    {:else if currentPage === 'analytics'}
+      <Analytics />
+    {:else if currentPage === 'profile'}
+      <Profile />
+    {:else if currentPage === 'messages'}
+      <Messages {newConversation} />
+    {/if}
+    
+    <!-- Global text highlight handler for AI rephrase tool -->
+    <TextHighlightHandler />
   {/if}
-  
-  <!-- Global text highlight handler for AI rephrase tool -->
-  <TextHighlightHandler />
 </main>

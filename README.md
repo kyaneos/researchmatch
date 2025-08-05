@@ -1,4 +1,4 @@
-# Creator-Researcher Match Platform
+# ResearchMatch Platform
 
 A web application designed to bridge the gap between scientific researchers and content creators, making research and research funding more accessible to the general public.
 

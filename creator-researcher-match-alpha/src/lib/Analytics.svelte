@@ -56,53 +56,29 @@
     const connections = getConnections();
     
     try {
-      // Load data from JSON files
-      const [creatorsRes, researchersRes, groupsRes] = await Promise.all([
-        fetch('/stem_creators_full_list.json'),
-        fetch('/researchers_full_list.json'),
-        fetch('/research_groups.json')
-      ]);
+      // In alpha version, load data from database instead of JSON files
+      const { fetchCreatorsFromDB, fetchResearchersFromDB, fetchResearchGroupsFromDB, isDatabaseConfigured } = await import('./database.js');
       
-      console.log('Fetch responses received:', { 
-        creatorsOk: creatorsRes.ok, 
-        researchersOk: researchersRes.ok, 
-        groupsOk: groupsRes.ok 
-      });
-      
-      if (!creatorsRes.ok || !researchersRes.ok || !groupsRes.ok) {
-        throw new Error('Failed to fetch one or more data files');
+      if (!isDatabaseConfigured()) {
+        // If no database configured, show empty analytics with helpful message
+        creators = [];
+        researchers = [];
+        researchGroups = [];
+        console.log('Database not configured, showing empty analytics');
+      } else {
+        // Load data from database
+        creators = await fetchCreatorsFromDB();
+        researchers = await fetchResearchersFromDB();
+        researchGroups = await fetchResearchGroupsFromDB();
       }
-      
-      creators = await creatorsRes.json();
-      researchers = await researchersRes.json();
-      const groupsData = await groupsRes.json();
       
       console.log('Data loaded successfully:', {
         creators: creators.length,
         researchers: researchers.length,
-        groupsData: groupsData ? 'loaded' : 'null'
+        researchGroups: researchGroups.length
       });
       
-      // Process research groups data
-      researchGroups = [];
-      if (groupsData && groupsData.universities && Array.isArray(groupsData.universities)) {
-        groupsData.universities.forEach((university) => {
-          if (university.departments && Array.isArray(university.departments)) {
-            university.departments.forEach((department) => {
-              if (department.labs && Array.isArray(department.labs)) {
-                department.labs.forEach((lab) => {
-                  researchGroups.push({
-                    ...lab,
-                    university: university.name,
-                    department: department.name,
-                    location: university.location
-                  });
-                });
-              }
-            });
-          }
-        });
-      }
+      // Research groups are already in the right format from database
       
       // Generate analytics
       try {
@@ -123,6 +99,32 @@
   
   function generateAnalytics() {
     console.log('Generating analytics with data:', { creators: creators.length, researchers: researchers.length, researchGroups: researchGroups.length });
+    
+    // Check if we have any data
+    if (creators.length === 0 && researchers.length === 0 && researchGroups.length === 0) {
+      // Initialize empty arrays for all analytics
+      topicRepresentation = [];
+      underrepresentedTopics = [];
+      contentByUniversity = [];
+      contentByRegion = [];
+      contentByField = [];
+      budgetRiskTopics = [];
+      novelTopics = [];
+      impactfulContent = [];
+      trendingTopics = [];
+      personalizedInsights = [{
+        title: "Database Setup Required",
+        message: "Connect your Supabase database to see real analytics data. Check the README for setup instructions.",
+        priority: "high"
+      }];
+      connectionAnalytics = {
+        totalConnections: 0,
+        averageMatchScore: 0,
+        topMatchedFields: [],
+        connectionGrowth: 0
+      };
+      return;
+    }
     
     // Topic representation analysis
     const allTopics = new Map();

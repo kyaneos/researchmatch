@@ -65,7 +65,7 @@ jobs:
         <!DOCTYPE html>
         <html>
         <head>
-          <title>Creator-Researcher Match Platform</title>
+          <title>ResearchMatch Platform</title>
           <style>
             body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
             .version { background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 8px; }
@@ -78,7 +78,7 @@ jobs:
           </style>
         </head>
         <body>
-          <h1>🔬 Creator-Researcher Match Platform</h1>
+          <h1>🔬 ResearchMatch Platform</h1>
           <p>A platform to bridge the gap between scientific researchers and content creators, making research more accessible to the general public.</p>
           
           <div class="version demo">
