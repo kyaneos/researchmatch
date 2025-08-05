@@ -27,19 +27,19 @@ const demoProfiles = {
     publications: [
       {
         id: 1,
-        title: 'Neural mechanisms of social influence in groups',
-        authors: 'Jolly, E., Chang, L.J.',
-        journal: 'Nature Neuroscience',
+        title: 'Py-Feat: Python Facial Expression Analysis Toolbox.',
+        authors: 'Jolly, E., Cheong, J.H.*, Xie, T.*, Byrne, S. Kenny, M., & Chang, L.J.',
+        journal: 'Affective Science',
         year: 2023,
-        link: 'https://example.com/paper1'
+        link: 'https://doi.org/10.1007/s42761-023-00191-4'
       },
       {
         id: 2,
-        title: 'The neuroscience of gossip: How social information shapes human bonding',
-        authors: 'Jolly, E., Smith, A., Johnson, K.',
-        journal: 'Current Opinion in Psychology',
-        year: 2022,
-        link: 'https://example.com/paper2'
+        title: 'Gossip drives vicarious learning and facilitates social connections',
+        authors: 'Jolly, E., Tamir, D.I., Burum, B., & Mitchell, J.P.',
+        journal: 'Current Biology',
+        year: 2021,
+        link: 'https://www.sciencedirect.com/science/article/pii/S0960982221004632'
       }
     ],
     skills: [
@@ -61,11 +61,11 @@ const demoProfiles = {
       },
       {
         id: 2,
-        name: 'Dr. Luke Chang',
-        institution: 'Dartmouth College',
-        project: 'Neural mechanisms of social information processing',
-        year: 2023,
-        outcome: 'Published in Nature Neuroscience, presented at SfN 2023'
+        name: 'Mandy Brownholtz',
+        institution: 'New York Times',
+        project: 'Feeling Socially Rusty? Try a Little Light Gossiping.',
+        year: 2021,
+        outcome: 'Published in New York Times'
       }
     ],
     platformPreferences: {
