@@ -612,9 +612,7 @@
     }
   }
 
-  onMount(() => {
-    loadAnalyticsData();
-  });
+  // Analytics will load automatically when profile is available via reactive statement
   
   function getRiskColor(riskLevel) {
     switch (riskLevel) {
