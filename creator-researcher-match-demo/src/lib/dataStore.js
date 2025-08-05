@@ -1,7 +1,7 @@
 // Global data store for caching creators, researchers, and research groups
 // Eliminates redundant API calls across components
 
-import { writable, derived } from 'svelte/store';
+import { writable, derived, get } from 'svelte/store';
 
 // Raw data stores
 export const creatorsData = writable([]);
@@ -50,12 +50,9 @@ export async function loadCreators() {
   errorStates.update(state => ({ ...state, creators: null }));
 
   try {
-    const response = await fetch('/stem_creators_full_list.json');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
+    // Import data from JavaScript module instead of fetching JSON to avoid CORS issues
+    const { creatorsData: rawData } = await import('../data/creators.js');
+    const data = rawData;
     
     // Transform the data to match our app's expected format
     const transformedData = data.map((creator, index) => ({
@@ -93,12 +90,9 @@ export async function loadResearchers() {
   errorStates.update(state => ({ ...state, researchers: null }));
 
   try {
-    const response = await fetch('/researchers_full_list.json');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
+    // Import data from JavaScript module instead of fetching JSON to avoid CORS issues
+    const { researchersData: rawData } = await import('../data/researchers.js');
+    const data = rawData;
     
     // Transform the data to match our app's expected format
     const transformedData = data.map((researcher, index) => ({
@@ -140,12 +134,9 @@ export async function loadResearchGroups() {
   errorStates.update(state => ({ ...state, researchGroups: null }));
 
   try {
-    const response = await fetch('/research_groups.json');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const hierarchicalData = await response.json();
+    // Import data from JavaScript module instead of fetching JSON to avoid CORS issues
+    const { researchGroupsData: rawData } = await import('../data/researchGroups.js');
+    const hierarchicalData = rawData;
     
     // Flatten the hierarchical data
     const flatGroups = [];
@@ -257,12 +248,7 @@ function updateUniversitiesAndFocusAreas(hierarchicalData) {
   focusAreas.set(Array.from(focusAreasSet).sort());
 }
 
-// Utility to get current value from store (for use in regular functions)
-function get(store) {
-  let value;
-  store.subscribe(v => value = v)();
-  return value;
-}
+// Utility function is now imported from svelte/store
 
 // Load all data function for initialization
 export async function loadAllData() {
