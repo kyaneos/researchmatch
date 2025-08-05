@@ -612,7 +612,13 @@
     }
   }
 
-  // Analytics will load automatically when profile is available via reactive statement
+  onMount(() => {
+    // If profile is already available, load analytics immediately
+    if ($currentProfile) {
+      loadAnalyticsData();
+    }
+    // Otherwise, reactive statement will handle it when profile becomes available
+  });
   
   function getRiskColor(riskLevel) {
     switch (riskLevel) {
