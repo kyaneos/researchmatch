@@ -2,6 +2,8 @@
 
 A web application designed to bridge the gap between scientific researchers and content creators, making research and research funding more accessible to the general public.
 
+**https://kyaneos.github.io/researchmatch/**
+
 ## 🌟 Project Context
 
 This project was developed during the **[ACM Collective Intelligence 2025](https://ci.acm.org/2025/)** hackathon by:
@@ -27,8 +29,6 @@ We created a platform that facilitates meaningful connections between researcher
 - **🎪 Demo Version**: [View Live Demo](https://kyaneos.github.io/researchmatch/demo/) - *Ready to use with sample data*
 - **🚀 Alpha Version**: [View Live Alpha](https://kyaneos.github.io/researchmatch/alpha/) - *Production-ready with database*
 
-> **Note**: Replace `your-username` and `your-repo-name` with your actual GitHub details after deployment.
-
 ## 🏗️ Repository Structure
 
 This repository contains two versions of the application:
@@ -39,7 +39,6 @@ The original hackathon demo version with:
 - JSON-based data storage
 - Full UI/UX showcase
 - Immediate functionality for demonstration purposes
-- **🌐 [Live Demo](https://your-username.github.io/your-repo-name/demo/)**
 
 ### 📁 `creator-researcher-match-alpha/`
 The production-ready alpha version featuring:
@@ -48,7 +47,6 @@ The production-ready alpha version featuring:
 - CRUD operations for all entities
 - Scalable architecture
 - No demo data (clean slate for real deployment)
-- **🌐 [Live Alpha](https://your-username.github.io/your-repo-name/alpha/)**
 
 ## 🚀 Features
 
@@ -247,6 +245,7 @@ This project was created during a hackathon and represents a proof of concept. W
 - [ ] User authentication and authorization
 - [ ] Real-time messaging system
 - [ ] Advanced matching algorithms with ML
+- [ ] LLM rephrasing tool if academic jargon is unapproachable for content creators
 - [ ] Integration with academic databases (ORCID, Google Scholar)
 - [ ] Mobile application
 - [ ] Collaboration project tracking
