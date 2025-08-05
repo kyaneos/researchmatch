@@ -461,8 +461,8 @@
         </div>
         
         <div class="filter-group">
-          <label>Filter by university:</label>
-          <select bind:value={filterUniversity} on:change={updateResults}>
+          <label for="groups-university-filter">Filter by university:</label>
+          <select id="groups-university-filter" bind:value={filterUniversity} on:change={updateResults}>
             <option value="all">All Universities</option>
             {#each universities as university}
               <option value={university.name}>{university.name}</option>
@@ -471,8 +471,8 @@
         </div>
         
         <div class="filter-group">
-          <label>Filter by focus area:</label>
-          <select bind:value={filterFocusArea} on:change={updateResults}>
+          <label for="groups-focus-filter">Filter by focus area:</label>
+          <select id="groups-focus-filter" bind:value={filterFocusArea} on:change={updateResults}>
             <option value="all">All Areas</option>
             {#each focusAreas as area}
               <option value={area}>{area}</option>
@@ -646,10 +646,10 @@
   
   <!-- Magic Matches Modal -->
   {#if showMagicResults}
-    <div class="magic-modal-overlay" on:click={closeMagicResults}>
-      <div class="magic-modal" on:click|stopPropagation>
+    <div class="magic-modal-overlay" on:click={closeMagicResults} on:keydown={(e) => e.key === 'Escape' && closeMagicResults()} role="dialog" aria-modal="true" aria-labelledby="magic-modal-title" tabindex="-1">
+      <div class="magic-modal" on:click|stopPropagation on:keydown|stopPropagation role="document">
         <div class="magic-header">
-          <h2>✨ Your Perfect Matches</h2>
+          <h2 id="magic-modal-title">✨ Your Perfect Matches</h2>
           <button class="close-btn" on:click={closeMagicResults}>×</button>
         </div>
         
@@ -1338,153 +1338,6 @@
     gap: 1.5rem;
   }
   
-  .magic-match-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
-  }
-  
-  .match-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .match-avatar {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  
-  .match-info {
-    flex: 1;
-  }
-  
-  .match-info h3 {
-    margin: 0 0 0.25rem;
-    color: #333;
-  }
-  
-  .match-field {
-    margin: 0;
-    color: #666;
-    font-size: 0.9rem;
-  }
-  
-  .match-institution {
-    margin: 0;
-    color: #999;
-    font-size: 0.85rem;
-  }
-  
-  .compatibility-badge {
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  .match-score {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1rem;
-    align-items: flex-start;
-  }
-  
-  .score-circle {
-    width: 70px;
-    height: 70px;
-    border: 3px solid #667eea;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    flex-shrink: 0;
-  }
-  
-  .score-number {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #667eea;
-  }
-  
-  .score-label {
-    font-size: 0.7rem;
-    color: #999;
-  }
-  
-  .match-reasons {
-    flex: 1;
-  }
-  
-  .match-reasons h4 {
-    margin: 0 0 0.5rem;
-    color: #555;
-    font-size: 0.9rem;
-  }
-  
-  .match-reasons ul {
-    margin: 0;
-    padding-left: 1.2rem;
-  }
-  
-  .match-reasons li {
-    color: #666;
-    font-size: 0.85rem;
-    margin: 0.25rem 0;
-  }
-  
-  .match-actions {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .match-actions .connect-btn {
-    flex: 1;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .match-actions .connect-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  }
-  
-  .match-actions .view-profile-btn {
-    flex: 1;
-    padding: 0.75rem 1.5rem;
-    background: white;
-    color: #667eea;
-    border: 2px solid #667eea;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .match-actions .view-profile-btn:hover {
-    background: #667eea;
-    color: white;
-  }
-  
   .no-magic-matches {
     text-align: center;
     padding: 3rem 2rem;
@@ -1544,8 +1397,4 @@
     opacity: 1;
   }
   
-  .paraphrase-container {
-    display: flex;
-    align-items: center;
-  }
 </style>

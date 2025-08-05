@@ -1560,9 +1560,6 @@
       padding: 1rem;
     }
     
-    .profile-header h1 {
-      font-size: 2rem;
-    }
     
     .user-type-selection {
       grid-template-columns: 1fr;

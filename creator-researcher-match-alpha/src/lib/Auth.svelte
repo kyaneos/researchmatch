@@ -157,13 +157,23 @@
           
           <div class="form-row">
             <div class="form-group">
-              <label for="institution">{formData.type === 'researcher' ? 'Institution' : 'Primary Platform'}</label>
-              <input 
-                type="text" 
-                id="institution" 
-                bind:value={formData.type === 'researcher' ? formData.institution : formData.platform}
-                placeholder={formData.type === 'researcher' ? 'Your university or organization' : 'YouTube, TikTok, Blog, etc.'} 
-              />
+              {#if formData.type === 'researcher'}
+                <label for="institution">Institution</label>
+                <input 
+                  type="text" 
+                  id="institution" 
+                  bind:value={formData.institution}
+                  placeholder="Your university or organization" 
+                />
+              {:else}
+                <label for="platform">Primary Platform</label>
+                <input 
+                  type="text" 
+                  id="platform" 
+                  bind:value={formData.platform}
+                  placeholder="YouTube, TikTok, Blog, etc." 
+                />
+              {/if}
             </div>
             <div class="form-group">
               <label for="field">{formData.type === 'researcher' ? 'Field of Study' : 'Content Focus'}</label>

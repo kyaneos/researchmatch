@@ -595,7 +595,7 @@ ${proposal.notes ? `\n**Additional Notes:**\n${proposal.notes}` : ''}
   <div class="conversations-list" class:mobile-show={showConversations}>
     <div class="conversations-header">
       <h2>Messages</h2>
-      <button class="new-conversation-btn" title="Start new conversation">
+      <button class="new-conversation-btn" title="Start new conversation" aria-label="Start new conversation">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path d="M10 5v10m5-5H5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
@@ -641,7 +641,7 @@ ${proposal.notes ? `\n**Additional Notes:**\n${proposal.notes}` : ''}
         <p>{selectedConversation.person?.field || 'Active 30 minutes ago'}</p>
       </div>
       <div class="chat-actions">
-        <button class="action-btn" title="View profile">
+        <button class="action-btn" title="View profile" aria-label="View profile">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
             <path d="M10 11.5V10M10 8.5V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -731,19 +731,19 @@ ${proposal.notes ? `\n**Additional Notes:**\n${proposal.notes}` : ''}
       {/if}
       
       <div class="input-toolbar">
-        <button class="toolbar-btn" on:click={() => showTemplates = !showTemplates} title="Message templates">
+        <button class="toolbar-btn" on:click={() => showTemplates = !showTemplates} title="Message templates" aria-label="Message templates">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M3 2h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 4v8h10V6H3z"/>
           </svg>
         </button>
         
-        <button class="toolbar-btn" on:click={() => {showStarters = !showStarters; messages.length === 0 && (showStarters = true);}} title="Conversation starters">
+        <button class="toolbar-btn" on:click={() => {showStarters = !showStarters; messages.length === 0 && (showStarters = true);}} title="Conversation starters" aria-label="Conversation starters">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0-2.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm1.5-5.5a1.5 1.5 0 1 1-3 0V5.5a1.5 1.5 0 0 1 3 0V7z"/>
           </svg>
         </button>
         
-        <button class="toolbar-btn" on:click={() => showProposalForm = !showProposalForm} title="Create project proposal">
+        <button class="toolbar-btn" on:click={() => showProposalForm = !showProposalForm} title="Create project proposal" aria-label="Create project proposal">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
             <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
@@ -753,7 +753,7 @@ ${proposal.notes ? `\n**Additional Notes:**\n${proposal.notes}` : ''}
         
         <div class="toolbar-separator"></div>
         
-        <button class="toolbar-btn" on:click={() => showFormatting = !showFormatting} title="Formatting">
+        <button class="toolbar-btn" on:click={() => showFormatting = !showFormatting} title="Formatting" aria-label="Formatting options">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M4.5 3h7a.5.5 0 0 1 0 1h-3v8.5a.5.5 0 0 1-1 0V4h-3a.5.5 0 0 1 0-1z"/>
           </svg>
@@ -792,13 +792,13 @@ ${proposal.notes ? `\n**Additional Notes:**\n${proposal.notes}` : ''}
         <div class="proposal-form">
           <h4>Create Project Proposal</h4>
           <div class="proposal-field">
-            <label>Project Title *</label>
-            <input type="text" bind:value={proposal.title} placeholder="Enter project title" />
+            <label for="proposal-title">Project Title *</label>
+            <input type="text" id="proposal-title" bind:value={proposal.title} placeholder="Enter project title" />
           </div>
           
           <div class="proposal-field">
-            <label>Collaboration Type</label>
-            <select bind:value={proposal.type}>
+            <label for="proposal-type">Collaboration Type</label>
+            <select id="proposal-type" bind:value={proposal.type}>
               <option value="research">Research Collaboration</option>
               <option value="content">Content Creation</option>
               <option value="consultation">Consultation</option>
@@ -807,33 +807,33 @@ ${proposal.notes ? `\n**Additional Notes:**\n${proposal.notes}` : ''}
           </div>
           
           <div class="proposal-field">
-            <label>Duration</label>
-            <input type="text" bind:value={proposal.duration} placeholder="e.g., 3 months, ongoing" />
+            <label for="proposal-duration">Duration</label>
+            <input type="text" id="proposal-duration" bind:value={proposal.duration} placeholder="e.g., 3 months, ongoing" />
           </div>
           
           <div class="proposal-field">
-            <label>Objectives *</label>
-            <textarea bind:value={proposal.objectives} placeholder="What do you hope to achieve?" rows="3"></textarea>
+            <label for="proposal-objectives">Objectives *</label>
+            <textarea id="proposal-objectives" bind:value={proposal.objectives} placeholder="What do you hope to achieve?" rows="3"></textarea>
           </div>
           
           <div class="proposal-field">
-            <label>Deliverables</label>
-            <textarea bind:value={proposal.deliverables} placeholder="Expected outcomes (papers, videos, talks)" rows="2"></textarea>
+            <label for="proposal-deliverables">Deliverables</label>
+            <textarea id="proposal-deliverables" bind:value={proposal.deliverables} placeholder="Expected outcomes (papers, videos, talks)" rows="2"></textarea>
           </div>
           
           <div class="proposal-field">
-            <label>Timeline</label>
-            <textarea bind:value={proposal.timeline} placeholder="Key milestones and dates" rows="2"></textarea>
+            <label for="proposal-timeline">Timeline</label>
+            <textarea id="proposal-timeline" bind:value={proposal.timeline} placeholder="Key milestones and dates" rows="2"></textarea>
           </div>
           
           <div class="proposal-field">
-            <label>Budget/Resources</label>
-            <input type="text" bind:value={proposal.budget} placeholder="Required funding or resources" />
+            <label for="proposal-budget">Budget/Resources</label>
+            <input type="text" id="proposal-budget" bind:value={proposal.budget} placeholder="Required funding or resources" />
           </div>
           
           <div class="proposal-field">
-            <label>Additional Notes</label>
-            <textarea bind:value={proposal.notes} placeholder="Any other relevant information" rows="2"></textarea>
+            <label for="proposal-notes">Additional Notes</label>
+            <textarea id="proposal-notes" bind:value={proposal.notes} placeholder="Any other relevant information" rows="2"></textarea>
           </div>
           
           <div class="proposal-actions">
@@ -851,7 +851,7 @@ ${proposal.notes ? `\n**Additional Notes:**\n${proposal.notes}` : ''}
           on:keypress={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
           rows="1"
         ></textarea>
-        <button class="send-btn" on:click={sendMessage} disabled={!newMessage.trim() && !attachedFile}>
+        <button class="send-btn" on:click={sendMessage} disabled={!newMessage.trim() && !attachedFile} aria-label="Send message">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M2 10l15-7.5L10 10l7.5 7.5L2 10zm8 0v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
