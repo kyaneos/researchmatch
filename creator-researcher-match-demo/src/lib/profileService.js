@@ -4,6 +4,8 @@ const PROFILE_KEY = 'researchmatch_profile';
 const CONNECTIONS_KEY = 'researchmatch_connections';
 const MESSAGES_KEY = 'researchmatch_messages';
 const DEMO_MODE_KEY = 'researchmatch_demo_mode';
+const PROFILE_VERSION = '2.0'; // Increment this when profile structure changes
+const VERSION_KEY = 'researchmatch_version';
 
 // Demo profiles for switching between researcher and creator
 const demoProfiles = {
@@ -202,6 +204,16 @@ export function setDemoMode(mode) {
 // Profile management
 export function getProfile() {
   try {
+    // Check version and clear old data if needed
+    const currentVersion = localStorage.getItem(VERSION_KEY);
+    if (currentVersion !== PROFILE_VERSION) {
+      console.log('Profile version mismatch, clearing old data');
+      localStorage.removeItem(PROFILE_KEY);
+      localStorage.removeItem(CONNECTIONS_KEY);
+      localStorage.removeItem(MESSAGES_KEY);
+      localStorage.setItem(VERSION_KEY, PROFILE_VERSION);
+    }
+    
     const stored = localStorage.getItem(PROFILE_KEY);
     if (stored) {
       const profile = JSON.parse(stored);
