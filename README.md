@@ -27,7 +27,7 @@ We created a platform that facilitates meaningful connections between researcher
 🎯 **Try it now!** Both versions are deployed and ready to explore:
 
 - **🎪 Demo Version**: [View Live Demo](https://kyaneos.github.io/researchmatch/demo/) - *Ready to use with sample data*
-- **🚀 Alpha Version**: [View Live Alpha](https://kyaneos.github.io/researchmatch/alpha/) - *Production-ready with database*
+- **🚀 Alpha Version**: [View Live Alpha](https://kyaneos.github.io/researchmatch/alpha/) - *Production-ready (needs backend database integration)*
 
 ## 🏗️ Repository Structure
 
